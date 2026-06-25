@@ -607,9 +607,9 @@ begin
       'likes', 'comments', 'saves', 'hashtags', 'live_streams', 'stream_viewers',
       'products', 'auctions', 'bids', 'fabric_catalog', 'reviews'
     ]) then
-      execute format('create policy %L on public.%I for select to authenticated using (deleted_at is null)', table_name || ' authenticated read', table_name);
+      execute format('create policy %I on public.%I for select to authenticated using (deleted_at is null)', table_name || ' authenticated read', table_name);
     end if;
-    execute format('create policy %L on public.%I for all to authenticated using (public.is_admin()) with check (public.is_admin())', table_name || ' admin manage', table_name);
+    execute format('create policy %I on public.%I for all to authenticated using (public.is_admin()) with check (public.is_admin())', table_name || ' admin manage', table_name);
   end loop;
 end;
 $$;
