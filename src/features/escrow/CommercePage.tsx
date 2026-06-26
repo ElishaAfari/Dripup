@@ -31,25 +31,25 @@ export function CommercePage() {
       { guildOrderId: 'guild-1', amount: 1800, provider: 'paystack', currency: 'GHS' },
       { ledgerId: 'mock-ledger', providerReference: 'mock_capture', providerConfigured: false },
     )
-    setStatus(`Capture ledger ${response.ledgerId} · ${response.providerConfigured ? 'provider live' : 'mock mode'}`)
+    setStatus(`Capture ledger ${response.ledgerId} / ${response.providerConfigured ? 'provider live' : 'mock mode'}`)
     setLoading(false)
   }
 
   return (
     <Page
-      eyebrow="Phase 4 commerce"
+      eyebrow="Protected commerce"
       title="Escrow with proof, approvals, and payout rails."
       description="Payments are captured through Edge Functions, ledgered in Postgres, and released milestone-by-milestone after client and artisan approval."
       action={
         <Button variant="secondary">
-          <Link to="/auctions">Open auctions</Link>
+          <Link to="/app/auctions">Open auctions</Link>
         </Button>
       }
     >
       <Card>
         <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-bold text-ink-muted dark:text-white/55">Guild order escrow total</p>
+            <p className="text-sm font-bold text-ink-muted dark:text-white/[0.55]">Guild order escrow total</p>
             <p className="font-display text-4xl font-black">{formatCurrency(escrowTotal)}</p>
           </div>
           <div className="flex gap-2">
@@ -60,24 +60,24 @@ export function CommercePage() {
             <Button variant="secondary">Approve active milestone</Button>
           </div>
         </div>
-        <p className="mb-4 text-sm font-semibold text-ink-muted dark:text-white/60">{status}</p>
+        <p className="mb-4 text-sm font-semibold text-ink-muted dark:text-white/[0.60]">{status}</p>
         <MilestoneBar milestones={milestones} />
       </Card>
 
       <div className="grid gap-4 md:grid-cols-3">
         {[
-          { icon: ShieldCheck, title: 'State machine', copy: 'pending → captured → approved → released → reconciled, with audit rows.' },
+          { icon: ShieldCheck, title: 'State machine', copy: 'pending -> captured -> approved -> released -> reconciled, with audit rows.' },
           { icon: Split, title: 'Split payouts', copy: 'Guild orders allocate release amounts across participant ledgers.' },
           { icon: Truck, title: 'Proof uploads', copy: 'Proof photos land in the proofs bucket and trigger notifications.' },
         ].map((item) => (
           <Card key={item.title} interactive>
-            <item.icon className="mb-3 text-atelier-saffron" size={23} />
+            <item.icon className="mb-3 text-atelier-green" size={23} />
             <h2 className="font-display text-2xl font-bold">{item.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-ink-muted dark:text-white/60">{item.copy}</p>
+            <p className="mt-2 text-sm leading-6 text-ink-muted dark:text-white/[0.60]">{item.copy}</p>
           </Card>
         ))}
       </div>
-      <Card className="border-atelier-rouge/30 bg-atelier-rouge/10">
+      <Card className="border-atelier-blue/30 bg-atelier-blue/10">
         <p className="text-sm font-semibold">
           Regulatory note: real escrow can be regulated financial activity. Production operation must use a licensed payment or escrow partner; this app models the ledger, state machine, and provider payout calls accordingly.
         </p>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Check } from 'lucide-react'
 import { cn, getInitials } from '@/lib/utils'
 
 type AvatarProps = {
@@ -29,8 +30,8 @@ export function Avatar({ src, name, size = 'md', verified = false, className }: 
         {src ? <img src={src} alt={name} className="h-full w-full object-cover" /> : getInitials(name)}
       </motion.span>
       {verified ? (
-        <span className="absolute -bottom-0.5 -right-0.5 grid h-4 w-4 place-items-center rounded-full bg-atelier-saffron text-[9px] font-black text-atelier-charcoal ring-2 ring-white dark:ring-atelier-charcoal">
-          ✓
+        <span className="absolute -bottom-0.5 -right-0.5 grid h-4 w-4 place-items-center rounded-full bg-atelier-green text-[9px] font-black text-atelier-black ring-2 ring-white dark:ring-atelier-black">
+          <Check size={10} strokeWidth={4} />
         </span>
       ) : null}
     </span>

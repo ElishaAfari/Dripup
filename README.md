@@ -67,13 +67,16 @@ supabase secrets set IMAGE_PROVIDER=openai IMAGE_API_KEY=...
 
 ## Feature Map
 
-- Social core: `/`, `/reels`, `/search`, `/profile/:id`
-- Auth entry: `/auth`, `/login`, `/signup`, `/phone-login`, `/forgot-password`
-- Messaging and live: `/messages`, `/live`
-- AI studio: `/studio` with Dream-to-Draft, measurement capture, estimator, remix
-- Commerce: `/commerce`, `/auctions`, `/guild-orders`
-- Phygital and wardrobe: `/passport/:passportId`, `/wardrobe`
-- Moodboards: `/moodboards`
+- Auth-first entry: `/`, `/auth`, `/login`, `/signup`, `/phone-login`, `/forgot-password`
+- Protected platform shell: `/app`
+- Social core: `/app`, `/app/reels`, `/app/search`, `/app/profile/:id`
+- Messaging and live: `/app/messages`, `/app/live`
+- AI studio: `/app/studio` with Dream-to-Draft, measurement capture, estimator, remix
+- Commerce: `/app/commerce`, `/app/auctions`, `/app/guild-orders`
+- Phygital and wardrobe: `/app/passport/:passportId`, `/app/wardrobe`
+- Moodboards: `/app/moodboards`
+
+The platform shell is guarded by Supabase Auth when configured. In local mock mode, the auth page creates a session-scoped preview login so the app remains runnable without exposing provider keys in the browser.
 
 ## Escrow Note
 

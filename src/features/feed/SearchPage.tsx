@@ -11,9 +11,9 @@ export function SearchPage() {
 
   return (
     <Page
-      eyebrow="Discovery + pgvector"
+      eyebrow="Discovery"
       title="Search styles, makers, and visual neighbors."
-      description="Search covers people, vendors, hashtags, and vector recommendations such as visually similar garments or vendors near me who can make this."
+      description="Find people, vendors, hashtags, similar garments, and makers who can bring a reference look to life."
       action={
         <Button variant="secondary">
           <SlidersHorizontal size={18} />
@@ -24,7 +24,7 @@ export function SearchPage() {
       <Card className="flex items-center gap-3">
         <Search className="text-ink-muted" size={20} />
         <input
-          className="min-h-12 flex-1 bg-transparent text-base outline-none placeholder:text-ink-muted dark:placeholder:text-white/45"
+          className="min-h-12 flex-1 bg-transparent text-base outline-none placeholder:text-ink-muted dark:placeholder:text-white/[0.45]"
           placeholder="Search kente corsets, bridal MUA, sneaker makers..."
         />
         <Button size="sm">Search</Button>
@@ -33,7 +33,7 @@ export function SearchPage() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <div className="mb-4 flex items-center gap-2">
-            <Sparkles className="text-atelier-saffron" size={20} />
+            <Sparkles className="text-atelier-green" size={20} />
             <h2 className="text-xl font-bold">Vector style matches</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -43,12 +43,12 @@ export function SearchPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08 }}
-                className="overflow-hidden rounded-2xl bg-atelier-mist/50 dark:bg-white/10"
+                className="overflow-hidden border border-black/[0.08] bg-atelier-mist/50 dark:border-white/10 dark:bg-white/[0.08]"
               >
                 <img src={post.media[0].url} alt={post.media[0].alt} className="h-44 w-full object-cover" />
                 <div className="p-3">
                   <p className="text-sm font-bold">{post.hashtags.map((tag) => `#${tag}`).join(' ')}</p>
-                  <p className="mt-1 text-xs text-ink-muted dark:text-white/55">Embedding score {(0.92 - index * 0.07).toFixed(2)}</p>
+                  <p className="mt-1 text-xs text-ink-muted dark:text-white/[0.55]">Style match {(0.92 - index * 0.07).toFixed(2)}</p>
                 </div>
               </motion.div>
             ))}
@@ -64,11 +64,11 @@ export function SearchPage() {
                 return null
               }
               return (
-                <motion.div key={vendor.id} layout className="flex items-center gap-3 rounded-2xl bg-white/70 p-3 dark:bg-white/10">
+                <motion.div key={vendor.id} layout className="flex items-center gap-3 border border-black/[0.08] bg-white/[0.72] p-3 dark:border-white/10 dark:bg-white/[0.08]">
                   <Avatar src={profile.avatarUrl} name={profile.displayName} verified={profile.verified} />
                   <div className="min-w-0">
                     <p className="truncate font-bold">{vendor.studioName}</p>
-                    <p className="truncate text-xs text-ink-muted dark:text-white/55">{vendor.location}</p>
+                    <p className="truncate text-xs text-ink-muted dark:text-white/[0.55]">{vendor.location}</p>
                   </div>
                 </motion.div>
               )

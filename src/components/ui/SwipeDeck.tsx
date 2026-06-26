@@ -25,7 +25,7 @@ export function SwipeDeck({ cards }: SwipeDeckProps) {
           .map((card, stackIndex) => (
             <motion.div
               key={card.id}
-              className="absolute inset-x-0 top-0 overflow-hidden rounded-2xl bg-white shadow-soft dark:bg-white/10"
+              className="absolute inset-x-0 top-0 overflow-hidden border border-black/[0.08] bg-white shadow-[0_18px_54px_rgba(5,8,6,0.14)] dark:border-white/10 dark:bg-white/[0.08]"
               style={{ zIndex: stackIndex }}
               initial={{ opacity: 0, scale: 0.94, y: 16 }}
               animate={{ opacity: 1, scale: 1 - stackIndex * 0.04, y: stackIndex * 14 }}
@@ -43,7 +43,7 @@ export function SwipeDeck({ cards }: SwipeDeckProps) {
                 <p className="font-display text-2xl font-bold">{card.title}</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {card.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-atelier-mist px-3 py-1 text-xs font-bold text-ink-muted dark:bg-white/10 dark:text-white/65">
+                    <span key={tag} className="bg-atelier-mist px-3 py-1 text-xs font-bold text-ink-muted dark:bg-white/10 dark:text-white/[0.65]">
                       {tag}
                     </span>
                   ))}

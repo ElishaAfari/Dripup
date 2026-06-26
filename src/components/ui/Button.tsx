@@ -4,19 +4,23 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atelier-saffron disabled:pointer-events-none disabled:opacity-50',
+  'group inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-black transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atelier-green disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-atelier-charcoal text-ink-inverse shadow-soft hover:bg-atelier-indigo dark:bg-atelier-saffron dark:text-atelier-charcoal',
-        secondary: 'border border-atelier-mist bg-white/70 text-ink hover:bg-white dark:border-white/10 dark:bg-white/10 dark:text-ink-inverse dark:hover:bg-white/15',
-        ghost: 'text-ink-muted hover:bg-atelier-mist/60 dark:text-white/70 dark:hover:bg-white/10',
-        accent: 'bg-atelier-rouge text-white shadow-lift hover:bg-atelier-indigo',
+        primary:
+          'bg-atelier-black text-white shadow-[0_14px_36px_rgba(5,8,6,0.20)] hover:bg-atelier-indigo dark:bg-white dark:text-atelier-black',
+        secondary:
+          'border border-black/10 bg-white text-atelier-black shadow-[0_10px_30px_rgba(5,8,6,0.08)] hover:border-atelier-blue/[0.45] hover:text-atelier-blue dark:border-white/[0.12] dark:bg-white/[0.08] dark:text-white dark:hover:border-atelier-green/60',
+        ghost:
+          'text-ink-muted hover:bg-atelier-mist/60 hover:text-atelier-black dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white',
+        accent:
+          'bg-atelier-blue text-white shadow-[0_18px_42px_rgba(18,103,255,0.28)] hover:bg-atelier-indigo dark:bg-atelier-green dark:text-atelier-black',
       },
       size: {
-        sm: 'min-h-9 rounded-xl px-3 text-xs',
+        sm: 'min-h-9 rounded-lg px-3 text-xs',
         md: 'min-h-11',
-        lg: 'min-h-12 px-5 text-base',
+        lg: 'min-h-[52px] px-5 text-base',
         icon: 'h-11 w-11 rounded-full p-0',
       },
     },
@@ -33,8 +37,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, children, ...props }, ref) => (
     <motion.button
       ref={ref}
-      whileTap={{ scale: 0.97 }}
-      whileHover={{ y: props.disabled ? 0 : -1 }}
+      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: props.disabled ? 0 : -2 }}
       className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     >

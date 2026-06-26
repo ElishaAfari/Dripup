@@ -12,7 +12,7 @@ export function Card({ className, interactive = false, children, ...props }: Car
       whileHover={interactive ? { y: -3 } : undefined}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
       className={cn(
-        'rounded-2xl border border-atelier-mist/80 bg-white/80 p-4 shadow-soft backdrop-blur dark:border-white/10 dark:bg-white/8',
+        'rounded-lg border border-black/[0.08] bg-white/[0.88] p-4 shadow-[0_18px_60px_rgba(5,8,6,0.10)] backdrop-blur dark:border-white/10 dark:bg-white/[0.08]',
         className,
       )}
       {...props}

@@ -16,19 +16,19 @@ export function FeedPage() {
 
   return (
     <Page
-      eyebrow="Phase 2 social core"
+      eyebrow="Atelier home"
       title="Fashion moves here first."
-      description="An algorithmic fashion feed mixing posts, reels, stories, and maker recommendations, backed by Supabase tables and realtime counters."
+      description="Posts, reels, stories, makers, live commerce, AI drafts, and protected orders in one calm fashion network."
       action={
         <div className="flex gap-2">
           <Button variant="secondary">
-            <Link to="/messages" className="inline-flex items-center gap-2">
+            <Link to="/app/messages" className="inline-flex items-center gap-2">
               <MessageCircle size={18} />
               Chat
             </Link>
           </Button>
           <Button variant="primary">
-            <Link to="/studio" className="inline-flex items-center gap-2">
+            <Link to="/app/studio" className="inline-flex items-center gap-2">
               <Sparkles size={18} />
               Create
             </Link>
@@ -50,9 +50,9 @@ export function FeedPage() {
 
         <aside className="space-y-4">
           {[
-            { to: '/reels', icon: Radio, label: 'Vertical reels', copy: 'Autoplay-like immersive cards with maker CTAs.' },
-            { to: '/commerce', icon: ShoppingBag, label: 'Escrow order', copy: 'Milestones, proof uploads, and payout rails.' },
-            { to: '/moodboards', icon: Sparkles, label: 'Swipe brief', copy: 'Mutual right swipes lock the creative direction.' },
+            { to: '/app/reels', icon: Radio, label: 'Vertical reels', copy: 'Watch silhouettes, techniques, fittings, and creator drops.' },
+            { to: '/app/commerce', icon: ShoppingBag, label: 'Protected orders', copy: 'Milestones, proofs, combined bills, and payout rails.' },
+            { to: '/app/moodboards', icon: Sparkles, label: 'Swipe briefs', copy: 'Match taste with a maker before the first stitch is cut.' },
           ].map((item, index) => (
             <motion.div
               key={item.to}
@@ -62,7 +62,7 @@ export function FeedPage() {
             >
               <Link to={item.to} className="block">
                 <Card interactive className="flex items-start gap-3">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-atelier-saffron/25 text-atelier-charcoal dark:text-atelier-saffron">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center bg-atelier-blue/10 text-atelier-blue dark:bg-atelier-green/10 dark:text-atelier-green">
                     <item.icon size={19} />
                   </span>
                   <span>

@@ -35,7 +35,7 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
                 <Avatar src={author.avatarUrl} name={author.displayName} verified={author.verified} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-bold">{author.displayName}</p>
-                  <p className="truncate text-xs text-ink-muted dark:text-white/55">
+                  <p className="truncate text-xs text-ink-muted dark:text-white/[0.55]">
                     {author.city}, {author.region}
                   </p>
                 </div>
@@ -48,7 +48,7 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
                 <p className="text-sm leading-6">{post.caption}</p>
                 <div className="flex flex-wrap gap-2">
                   {post.hashtags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-atelier-mist px-3 py-1 text-xs font-semibold text-ink-muted dark:bg-white/10 dark:text-white/65">
+                    <span key={tag} className="bg-atelier-mist px-3 py-1 text-xs font-semibold text-ink-muted dark:bg-white/10 dark:text-white/[0.65]">
                       #{tag}
                     </span>
                   ))}
@@ -57,7 +57,7 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
                   <div className="flex gap-1">
                     <Button variant="ghost" size="icon" onClick={() => toggleLike(post.id)} aria-label="Like post">
                       <motion.span animate={liked ? { scale: [1, 1.45, 1] } : { scale: 1 }}>
-                        <Heart size={19} fill={liked ? '#b63d4f' : 'none'} color={liked ? '#b63d4f' : 'currentColor'} />
+                        <Heart size={19} fill={liked ? '#00b86b' : 'none'} color={liked ? '#00b86b' : 'currentColor'} />
                       </motion.span>
                     </Button>
                     <Button variant="ghost" size="icon" aria-label="Comment">
@@ -70,8 +70,8 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
                       <Bookmark size={19} />
                     </Button>
                   </div>
-                  <p className="text-xs font-semibold text-ink-muted dark:text-white/55">
-                    {formatCompact(post.likes + (liked ? 1 : 0))} likes · {formatCompact(post.comments)} comments
+                  <p className="text-xs font-semibold text-ink-muted dark:text-white/[0.55]">
+                    {formatCompact(post.likes + (liked ? 1 : 0))} likes / {formatCompact(post.comments)} comments
                   </p>
                 </div>
               </div>
@@ -80,9 +80,9 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
         )
       })}
 
-      <Card className="bg-atelier-charcoal text-ink-inverse dark:bg-white/10">
+      <Card className="bg-atelier-black text-ink-inverse dark:bg-white/10">
         <div className="mb-4 flex items-center gap-2">
-          <Sparkles className="text-atelier-saffron" size={20} />
+          <Sparkles className="text-atelier-green" size={20} />
           <h2 className="text-xl font-bold">Recommended makers near you</h2>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
@@ -92,12 +92,12 @@ export function Feed({ posts, vendors, profiles }: FeedProps) {
               <motion.div
                 key={vendor.id}
                 layout
-                className="rounded-2xl bg-white/10 p-3"
+                className="border border-white/10 bg-white/[0.08] p-3"
                 whileHover={{ y: -2 }}
               >
                 <Avatar src={profile.avatarUrl} name={profile.displayName} verified={profile.verified} />
                 <p className="mt-3 font-bold">{vendor.studioName}</p>
-                <p className="text-xs text-white/65">{vendor.specialties.slice(0, 2).join(' · ')}</p>
+                <p className="text-xs text-white/[0.65]">{vendor.specialties.slice(0, 2).join(' / ')}</p>
                 <Button className="mt-3 w-full" variant="accent" size="sm">
                   Find a maker like this
                 </Button>

@@ -1,54 +1,64 @@
-import { Bell, Camera, Compass, Home, LogIn, MessageCircle, Moon, Palette, Search, Shirt, ShoppingBag, Sparkles, Sun, UserRound, Video } from 'lucide-react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Bell, Camera, Compass, Home, LogOut, MessageCircle, Moon, Palette, Search, Shirt, ShoppingBag, Sparkles, Sun, UserRound, Video } from 'lucide-react'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import { notifications, profiles } from '@/data/seed'
+import { clearPreviewAuthenticated } from '@/lib/auth'
+import { isSupabaseConfigured, supabase } from '@/lib/supabase'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/useAppStore'
 
 const navItems = [
-  { to: '/', label: 'Home', icon: Home },
-  { to: '/auth', label: 'Auth', icon: LogIn },
-  { to: '/reels', label: 'Reels', icon: Video },
-  { to: '/search', label: 'Search', icon: Search },
-  { to: '/messages', label: 'Messages', icon: MessageCircle },
-  { to: '/live', label: 'Live', icon: Video },
-  { to: '/studio', label: 'AI Studio', icon: Sparkles },
-  { to: '/commerce', label: 'Commerce', icon: ShoppingBag },
-  { to: '/auctions', label: 'Auctions', icon: ShoppingBag },
-  { to: '/guild-orders', label: 'Guilds', icon: Compass },
-  { to: '/wardrobe', label: 'Wardrobe', icon: Shirt },
-  { to: '/moodboards', label: 'Moodboards', icon: Palette },
-  { to: '/passport/7a8ef9f2-2c60-4f02-8d43-f1d8a79f18d6', label: 'Passport', icon: Camera },
-  { to: '/profile/profile-ama', label: 'Profile', icon: UserRound },
+  { to: '/app', label: 'Home', icon: Home },
+  { to: '/app/reels', label: 'Reels', icon: Video },
+  { to: '/app/search', label: 'Search', icon: Search },
+  { to: '/app/messages', label: 'Messages', icon: MessageCircle },
+  { to: '/app/live', label: 'Live', icon: Video },
+  { to: '/app/studio', label: 'AI Studio', icon: Sparkles },
+  { to: '/app/commerce', label: 'Commerce', icon: ShoppingBag },
+  { to: '/app/auctions', label: 'Auctions', icon: ShoppingBag },
+  { to: '/app/guild-orders', label: 'Guilds', icon: Compass },
+  { to: '/app/wardrobe', label: 'Wardrobe', icon: Shirt },
+  { to: '/app/moodboards', label: 'Moodboards', icon: Palette },
+  { to: '/app/passport/7a8ef9f2-2c60-4f02-8d43-f1d8a79f18d6', label: 'Passport', icon: Camera },
+  { to: '/app/profile/profile-ama', label: 'Profile', icon: UserRound },
 ] as const
 
 const mobileItems = [
-  { to: '/', label: 'Home', icon: Home },
-  { to: '/reels', label: 'Reels', icon: Video },
-  { to: '/search', label: 'Search', icon: Search },
-  { to: '/messages', label: 'Messages', icon: MessageCircle },
-  { to: '/studio', label: 'Studio', icon: Sparkles },
+  { to: '/app', label: 'Home', icon: Home },
+  { to: '/app/reels', label: 'Reels', icon: Video },
+  { to: '/app/search', label: 'Search', icon: Search },
+  { to: '/app/messages', label: 'Messages', icon: MessageCircle },
+  { to: '/app/studio', label: 'Studio', icon: Sparkles },
 ] as const
 
 export function AppShell() {
+  const navigate = useNavigate()
   const theme = useAppStore((state) => state.theme)
   const toggleTheme = useAppStore((state) => state.toggleTheme)
   const unreadCount = notifications.filter((notification) => !notification.read).length
   const currentProfile = profiles[3]
 
+  async function handleSignOut() {
+    clearPreviewAuthenticated()
+    if (isSupabaseConfigured()) {
+      await supabase.auth.signOut()
+    }
+    navigate('/')
+  }
+
   return (
-    <div className="min-h-screen bg-canvas bg-grain bg-[length:18px_18px] text-ink dark:bg-canvas-dark dark:text-ink-inverse">
+    <div className="min-h-screen bg-[#f7fbff] bg-grain bg-[length:18px_18px] text-ink dark:bg-atelier-black dark:text-ink-inverse">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-atelier-mist/80 bg-canvas/80 p-5 backdrop-blur xl:block dark:border-white/10 dark:bg-canvas-dark/80">
-          <NavLink to="/" className="mb-8 flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-atelier-charcoal font-display text-xl font-black text-atelier-saffron dark:bg-atelier-saffron dark:text-atelier-charcoal">
+        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-black/[0.08] bg-white/[0.82] p-5 backdrop-blur-xl xl:block dark:border-white/10 dark:bg-white/[0.04]">
+          <NavLink to="/app" className="mb-8 flex items-center gap-3">
+            <span className="grid h-11 w-11 place-items-center bg-atelier-black font-display text-xl font-black text-atelier-green shadow-[0_14px_34px_rgba(0,184,107,0.18)] dark:bg-atelier-green dark:text-atelier-black">
               A
             </span>
             <div>
               <p className="font-display text-2xl font-black">Atelier</p>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted dark:text-white/55">by Dripup</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted dark:text-white/[0.55]">by Dripup</p>
             </div>
           </NavLink>
           <nav className="space-y-2">
@@ -58,8 +68,8 @@ export function AppShell() {
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    'flex min-h-12 items-center gap-3 rounded-2xl px-4 text-sm font-bold text-ink-muted transition-colors hover:bg-white dark:text-white/60 dark:hover:bg-white/10',
-                    isActive && 'bg-atelier-charcoal text-ink-inverse shadow-soft dark:bg-white/15 dark:text-ink-inverse',
+                    'flex min-h-12 items-center gap-3 px-4 text-sm font-black text-ink-muted transition-all hover:bg-[#eef5ff] hover:text-atelier-blue dark:text-white/[0.60] dark:hover:bg-white/10 dark:hover:text-white',
+                    isActive && 'bg-atelier-black text-white shadow-[0_14px_34px_rgba(5,8,6,0.18)] dark:bg-white/[0.14] dark:text-white',
                   )
                 }
               >
@@ -68,24 +78,32 @@ export function AppShell() {
               </NavLink>
             ))}
           </nav>
-          <div className="mt-6 rounded-2xl bg-atelier-charcoal p-4 text-ink-inverse">
-            <Palette className="mb-3 text-atelier-saffron" size={22} />
+          <div className="mt-6 border border-black/[0.08] bg-atelier-black p-4 text-ink-inverse shadow-[0_18px_48px_rgba(5,8,6,0.22)]">
+            <Palette className="mb-3 text-atelier-green" size={22} />
             <p className="font-display text-xl font-bold">Creative AI studio</p>
-            <p className="mt-2 text-sm text-white/65">Dream-to-Draft, Remix, fit-check, cost, and measurement flows are live in demo mode.</p>
+            <p className="mt-2 text-sm text-white/[0.68]">Draft, remix, estimate, fit-check, and collaborate from one command center.</p>
           </div>
+          <button
+            type="button"
+            onClick={() => void handleSignOut()}
+            className="mt-3 flex min-h-12 w-full items-center gap-3 border border-black/[0.08] bg-white px-4 text-sm font-black text-ink-muted transition hover:border-atelier-blue/[0.45] hover:text-atelier-blue dark:border-white/10 dark:bg-white/[0.06] dark:text-white/[0.70]"
+          >
+            <LogOut size={18} />
+            Sign out
+          </button>
         </aside>
 
         <div className="min-w-0 flex-1 pb-24 xl:pb-0">
-          <header className="sticky top-0 z-30 border-b border-atelier-mist/80 bg-canvas/88 px-4 py-3 backdrop-blur md:px-6 dark:border-white/10 dark:bg-canvas-dark/88">
+          <header className="sticky top-0 z-30 border-b border-black/[0.08] bg-[#f7fbff]/[0.88] px-4 py-3 backdrop-blur-xl md:px-6 dark:border-white/10 dark:bg-atelier-black/[0.88]">
             <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-              <NavLink to="/" className="flex items-center gap-2 xl:hidden">
-                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-atelier-charcoal font-display text-lg font-black text-atelier-saffron dark:bg-atelier-saffron dark:text-atelier-charcoal">
+              <NavLink to="/app" className="flex items-center gap-2 xl:hidden">
+                <span className="grid h-10 w-10 place-items-center bg-atelier-black font-display text-lg font-black text-atelier-green dark:bg-atelier-green dark:text-atelier-black">
                   A
                 </span>
                 <span className="font-display text-2xl font-black">Atelier</span>
               </NavLink>
               <div className="hidden min-w-0 flex-1 md:block">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted dark:text-white/55">Fashion lifestyle super-app</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-atelier-blue dark:text-atelier-green">Fashion lifestyle super-app</p>
                 <p className="truncate font-display text-2xl font-bold">Social, commerce, studio, passports</p>
               </div>
               <div className="flex items-center gap-2">
@@ -95,10 +113,13 @@ export function AppShell() {
                 <Button variant="secondary" size="icon" aria-label="Notifications" className="relative">
                   <Bell size={18} />
                   {unreadCount ? (
-                    <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-atelier-rouge text-[10px] font-black text-white">
+                    <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-atelier-blue text-[10px] font-black text-white">
                       {unreadCount}
                     </span>
                   ) : null}
+                </Button>
+                <Button variant="secondary" size="icon" onClick={() => void handleSignOut()} aria-label="Sign out" className="xl:hidden">
+                  <LogOut size={18} />
                 </Button>
                 <Avatar src={currentProfile.avatarUrl} name={currentProfile.displayName} verified={currentProfile.verified} />
               </div>
@@ -115,7 +136,7 @@ export function AppShell() {
         </div>
       </div>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-atelier-mist bg-canvas/92 px-2 py-2 backdrop-blur xl:hidden dark:border-white/10 dark:bg-canvas-dark/92">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-black/[0.08] bg-white/[0.92] px-2 py-2 backdrop-blur-xl xl:hidden dark:border-white/10 dark:bg-atelier-black/[0.92]">
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1">
           {mobileItems.map((item) => (
             <NavLink
@@ -123,8 +144,8 @@ export function AppShell() {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  'grid min-h-14 place-items-center rounded-2xl text-[11px] font-bold text-ink-muted dark:text-white/60',
-                  isActive && 'bg-atelier-charcoal text-ink-inverse dark:bg-white/15',
+                  'grid min-h-14 place-items-center text-[11px] font-black text-ink-muted transition dark:text-white/[0.60]',
+                  isActive && 'bg-atelier-black text-white dark:bg-white/[0.14]',
                 )
               }
             >
