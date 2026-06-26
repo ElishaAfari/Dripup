@@ -24,7 +24,13 @@ const navItems = [
   { to: '/profile/profile-ama', label: 'Profile', icon: UserRound },
 ] as const
 
-const mobileItems = navItems.slice(0, 5)
+const mobileItems = [
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/reels', label: 'Reels', icon: Video },
+  { to: '/search', label: 'Search', icon: Search },
+  { to: '/messages', label: 'Messages', icon: MessageCircle },
+  { to: '/studio', label: 'Studio', icon: Sparkles },
+] as const
 
 export function AppShell() {
   const theme = useAppStore((state) => state.theme)

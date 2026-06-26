@@ -5,7 +5,7 @@ Atelier is a mobile-first fashion lifestyle super-app scaffold: TikTok/Facebook-
 ## Stack
 
 - React 18, Vite, TypeScript
-- Tailwind CSS design system in `tailwind.config.ts`
+- Tailwind CSS design system in `tailwind.config.ts`, tuned to the official blue, green, white, and black brand palette
 - Framer Motion for page transitions, list entrances, gestures, counters, modals, and cards
 - React Router, TanStack Query, Zustand
 - Supabase Postgres/Auth/Realtime/Storage/Edge Functions
@@ -68,6 +68,7 @@ supabase secrets set IMAGE_PROVIDER=openai IMAGE_API_KEY=...
 ## Feature Map
 
 - Social core: `/`, `/reels`, `/search`, `/profile/:id`
+- Auth entry: `/auth`, `/login`, `/signup`, `/phone-login`, `/forgot-password`
 - Messaging and live: `/messages`, `/live`
 - AI studio: `/studio` with Dream-to-Draft, measurement capture, estimator, remix
 - Commerce: `/commerce`, `/auctions`, `/guild-orders`

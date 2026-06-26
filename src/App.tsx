@@ -22,9 +22,13 @@ export default function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="auth" element={<AuthPage />} />
+        <Route path="login" element={<AuthPage />} />
+        <Route path="signup" element={<AuthPage />} />
+        <Route path="phone-login" element={<AuthPage />} />
+        <Route path="forgot-password" element={<AuthPage />} />
         <Route element={<AppShell />}>
           <Route index element={<FeedPage />} />
-          <Route path="auth" element={<AuthPage />} />
           <Route path="reels" element={<ReelsPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="messages" element={<MessagingPage />} />
