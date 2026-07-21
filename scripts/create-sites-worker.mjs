@@ -2,7 +2,14 @@ import { cp, mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const worker = `const ASSET_EXTENSIONS = /\\.[a-zA-Z0-9]{2,8}$/;
-const INDEX_CANDIDATES = ['/index.html', '/public/index.html', '/client/index.html'];
+const INDEX_CANDIDATES = [
+  '/index.html',
+  '/public/index.html',
+  '/client/index.html',
+  '/dist/index.html',
+  '/dist/public/index.html',
+  '/dist/client/index.html',
+];
 
 async function fetchAsset(env, request) {
   return env.ASSETS.fetch(request);
@@ -33,6 +40,9 @@ export default {
         url.pathname,
         \`/public\${url.pathname}\`,
         \`/client\${url.pathname}\`,
+        \`/dist\${url.pathname}\`,
+        \`/dist/public\${url.pathname}\`,
+        \`/dist/client\${url.pathname}\`,
       ]);
     }
 
