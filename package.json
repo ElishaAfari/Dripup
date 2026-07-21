@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "postbuild": "node scripts/create-sites-worker.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "supabase:types": "supabase gen types typescript --local > src/types/database.generated.ts"
