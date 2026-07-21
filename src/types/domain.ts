@@ -14,6 +14,8 @@ export type Profile = {
   username: string
   displayName: string
   role: Role
+  professionalRoleIds?: string[]
+  primaryProfession?: string
   avatarUrl: string
   coverUrl: string
   city: string
@@ -28,6 +30,8 @@ export type VendorProfile = {
   id: string
   profileId: string
   studioName: string
+  roleTags?: string[]
+  suiteKey?: string
   specialties: string[]
   services: string[]
   priceRange: string

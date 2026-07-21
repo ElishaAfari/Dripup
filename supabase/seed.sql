@@ -6,7 +6,14 @@ values
   ('11111111-1111-4111-8111-111111111111', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'ama@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Ama Owusu"}', now(), now()),
   ('22222222-2222-4222-8222-222222222222', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'kofi@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Kofi Mensah"}', now(), now()),
   ('33333333-3333-4333-8333-333333333333', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'esi@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Esi Addo"}', now(), now()),
-  ('44444444-4444-4444-8444-444444444444', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'nadia@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Nadia Boateng"}', now(), now())
+  ('44444444-4444-4444-8444-444444444444', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'nadia@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Nadia Boateng"}', now(), now()),
+  ('55555555-5555-4555-8555-555555555555', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'kwame@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Kwame Badu"}', now(), now()),
+  ('66666666-6666-4666-8666-666666666666', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'afia@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Afia Sarpong"}', now(), now()),
+  ('77777777-7777-4777-8777-777777777777', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'selorm@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Selorm Ankomah"}', now(), now()),
+  ('88888888-8888-4888-8888-888888888888', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'mansa@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Mansa Darko"}', now(), now()),
+  ('99999999-9999-4999-8999-999999999999', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'nana@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Nana Yeboah"}', now(), now()),
+  ('aaaaaaaa-aaaa-4aaa-8aaa-000000000001', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'theo@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Theo Mensah"}', now(), now()),
+  ('bbbbbbbb-bbbb-4bbb-8bbb-000000000001', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'yvonne@atelier.local', crypt('password', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"display_name":"Yvonne Osei"}', now(), now())
 on conflict (id) do nothing;
 
 insert into auth.identities (
@@ -16,36 +23,76 @@ values
   ('11111111-1111-4111-9111-111111111111', '11111111-1111-4111-8111-111111111111', 'ama@atelier.local', '{"sub":"11111111-1111-4111-8111-111111111111","email":"ama@atelier.local"}', 'email', now(), now(), now()),
   ('22222222-2222-4222-9222-222222222222', '22222222-2222-4222-8222-222222222222', 'kofi@atelier.local', '{"sub":"22222222-2222-4222-8222-222222222222","email":"kofi@atelier.local"}', 'email', now(), now(), now()),
   ('33333333-3333-4333-9333-333333333333', '33333333-3333-4333-8333-333333333333', 'esi@atelier.local', '{"sub":"33333333-3333-4333-8333-333333333333","email":"esi@atelier.local"}', 'email', now(), now(), now()),
-  ('44444444-4444-4444-9444-444444444444', '44444444-4444-4444-8444-444444444444', 'nadia@atelier.local', '{"sub":"44444444-4444-4444-8444-444444444444","email":"nadia@atelier.local"}', 'email', now(), now(), now())
+  ('44444444-4444-4444-9444-444444444444', '44444444-4444-4444-8444-444444444444', 'nadia@atelier.local', '{"sub":"44444444-4444-4444-8444-444444444444","email":"nadia@atelier.local"}', 'email', now(), now(), now()),
+  ('55555555-5555-4555-9555-555555555555', '55555555-5555-4555-8555-555555555555', 'kwame@atelier.local', '{"sub":"55555555-5555-4555-8555-555555555555","email":"kwame@atelier.local"}', 'email', now(), now(), now()),
+  ('66666666-6666-4666-9666-666666666666', '66666666-6666-4666-8666-666666666666', 'afia@atelier.local', '{"sub":"66666666-6666-4666-8666-666666666666","email":"afia@atelier.local"}', 'email', now(), now(), now()),
+  ('77777777-7777-4777-9777-777777777777', '77777777-7777-4777-8777-777777777777', 'selorm@atelier.local', '{"sub":"77777777-7777-4777-8777-777777777777","email":"selorm@atelier.local"}', 'email', now(), now(), now()),
+  ('88888888-8888-4888-9888-888888888888', '88888888-8888-4888-8888-888888888888', 'mansa@atelier.local', '{"sub":"88888888-8888-4888-8888-888888888888","email":"mansa@atelier.local"}', 'email', now(), now(), now()),
+  ('99999999-9999-4999-9999-999999999999', '99999999-9999-4999-8999-999999999999', 'nana@atelier.local', '{"sub":"99999999-9999-4999-8999-999999999999","email":"nana@atelier.local"}', 'email', now(), now(), now()),
+  ('aaaaaaaa-aaaa-4aaa-9aaa-000000000001', 'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', 'theo@atelier.local', '{"sub":"aaaaaaaa-aaaa-4aaa-8aaa-000000000001","email":"theo@atelier.local"}', 'email', now(), now(), now()),
+  ('bbbbbbbb-bbbb-4bbb-9bbb-000000000001', 'bbbbbbbb-bbbb-4bbb-8bbb-000000000001', 'yvonne@atelier.local', '{"sub":"bbbbbbbb-bbbb-4bbb-8bbb-000000000001","email":"yvonne@atelier.local"}', 'email', now(), now(), now())
 on conflict (provider, provider_id) do nothing;
 
-insert into public.profiles (id, username, display_name, avatar_url, cover_url, bio, region, city, roles)
+insert into public.profiles (id, username, display_name, avatar_url, cover_url, bio, region, city, roles, professional_role_ids, primary_profession)
 values
-  ('11111111-1111-4111-8111-111111111111', 'ama.thread', 'Ama Owusu', 'avatars/ama.jpg', 'posts/atelier.jpg', 'Bespoke womenswear and sculptural corsetry.', 'Greater Accra', 'Accra', array['customer','artisan','designer']::public.app_role[]),
-  ('22222222-2222-4222-8222-222222222222', 'kofi.sole', 'Kofi Mensah', 'avatars/kofi.jpg', 'posts/sneakers.jpg', 'Sneaker restoration and custom wedding footwear.', 'Ashanti', 'Kumasi', array['customer','artisan','seller']::public.app_role[]),
-  ('33333333-3333-4333-8333-333333333333', 'esi.looks', 'Esi Addo', 'avatars/esi.jpg', 'posts/makeup.jpg', 'Editorial makeup artist and bridal beauty lead.', 'Central', 'Cape Coast', array['customer','mua']::public.app_role[]),
-  ('44444444-4444-4444-8444-444444444444', 'nadia.fits', 'Nadia Boateng', 'avatars/nadia.jpg', 'posts/wardrobe.jpg', 'Collector of sharp tailoring and wearable drama.', 'Greater Accra', 'Tema', array['customer']::public.app_role[])
+  ('11111111-1111-4111-8111-111111111111', 'ama.thread', 'Ama Owusu', 'avatars/ama.jpg', 'posts/atelier.jpg', 'Bespoke womenswear and sculptural corsetry.', 'Greater Accra', 'Accra', array['customer','artisan','designer']::public.app_role[], array['bespoke-tailor-seamstress','bridal-kente-couturier','fashion-designer'], 'bespoke-tailor-seamstress'),
+  ('22222222-2222-4222-8222-222222222222', 'kofi.sole', 'Kofi Mensah', 'avatars/kofi.jpg', 'posts/sneakers.jpg', 'Sneaker restoration and custom wedding footwear.', 'Ashanti', 'Kumasi', array['customer','artisan','seller']::public.app_role[], array['cordwainer-shoemaker','sneaker-customizer','footwear-restoration-expert'], 'sneaker-customizer'),
+  ('33333333-3333-4333-8333-333333333333', 'esi.looks', 'Esi Addo', 'avatars/esi.jpg', 'posts/makeup.jpg', 'Editorial makeup artist and bridal beauty lead.', 'Central', 'Cape Coast', array['customer','mua']::public.app_role[], array['makeup-artist','skin-glow-consultant'], 'makeup-artist'),
+  ('44444444-4444-4444-8444-444444444444', 'nadia.fits', 'Nadia Boateng', 'avatars/nadia.jpg', 'posts/wardrobe.jpg', 'Collector of sharp tailoring and wearable drama.', 'Greater Accra', 'Tema', array['customer']::public.app_role[], array['bespoke-client','trend-observer'], 'bespoke-client'),
+  ('55555555-5555-4555-8555-555555555555', 'kwame.kente', 'Kwame Badu', 'avatars/kwame.jpg', 'posts/textile.jpg', 'Kente weaving house producing custom strips and provenance-backed textile lots.', 'Ashanti', 'Bonwire', array['customer','artisan','seller']::public.app_role[], array['kente-weaver','textile-artisan','fabric-vendor'], 'kente-weaver'),
+  ('66666666-6666-4666-8666-666666666666', 'afia.styles', 'Afia Sarpong', 'avatars/afia.jpg', 'posts/editorial.jpg', 'Stylist and creative director building campaign looks, wedding guilds, and trend reports.', 'Greater Accra', 'East Legon', array['customer','designer']::public.app_role[], array['fashion-stylist','creative-director','fashion-blogger-influencer'], 'fashion-stylist'),
+  ('77777777-7777-4777-8777-777777777777', 'selorm.frame', 'Selorm Ankomah', 'avatars/selorm.jpg', 'posts/studio.jpg', 'Fashion photographer and videographer capturing campaign drops, fittings, and runway films.', 'Greater Accra', 'Labone', array['customer','artisan']::public.app_role[], array['fashion-photographer','fashion-videographer','model'], 'fashion-photographer'),
+  ('88888888-8888-4888-8888-888888888888', 'mansa.crown', 'Mansa Darko', 'avatars/mansa.jpg', 'posts/hair.jpg', 'Braids, locs, lace-front construction, and raw hair sourcing for editorial and bridal clients.', 'Greater Accra', 'Madina', array['customer','artisan','seller']::public.app_role[], array['professional-braider','wig-architect','natural-hair-loctician','raw-hair-vendor'], 'professional-braider'),
+  ('99999999-9999-4999-8999-999999999999', 'nana.gold', 'Nana Yeboah', 'avatars/nana.jpg', 'posts/jewelry.jpg', 'Goldsmith, bead stringer, and regalia curator for premium ceremony pieces and authenticated heirlooms.', 'Ashanti', 'Kumasi', array['customer','artisan','seller']::public.app_role[], array['goldsmith-silversmith','beadmaker-stringer','traditional-regalia-curator','accessory-designer'], 'goldsmith-silversmith'),
+  ('aaaaaaaa-aaaa-4aaa-8aaa-000000000001', 'theo.dispatch', 'Theo Mensah', 'avatars/theo.jpg', 'posts/logistics.jpg', 'Garment-safe dispatch for fabrics, fittings, proofs, returns, and ceremony delivery windows.', 'Greater Accra', 'Tema', array['customer','seller']::public.app_role[], array['logistics-dispatch-partner'], 'logistics-dispatch-partner'),
+  ('bbbbbbbb-bbbb-4bbb-8bbb-000000000001', 'yvonne.authlab', 'Yvonne Osei', 'avatars/yvonne.jpg', 'posts/passport.jpg', 'Authenticator and QA expert verifying premium textiles, designer pieces, NFC passports, and milestone disputes.', 'Greater Accra', 'Airport City', array['customer','admin']::public.app_role[], array['authenticator-qa'], 'authenticator-qa')
 on conflict (id) do nothing;
 
-insert into public.vendor_profiles (id, profile_id, studio_name, specialties, services, location_region, location_city, price_min, price_max, rating, review_count, verified)
+insert into public.profile_professional_roles (profile_id, role_id, is_primary, visibility)
+select
+  p.id,
+  role_id,
+  role_id = p.primary_profession,
+  'public'
+from public.profiles p
+cross join unnest(p.professional_role_ids) as role_id
+where p.deleted_at is null
+on conflict (profile_id, role_id) do update
+set is_primary = excluded.is_primary,
+    visibility = excluded.visibility,
+    updated_at = now();
+
+insert into public.vendor_profiles (id, profile_id, studio_name, specialties, services, role_tags, suite_key, location_region, location_city, price_min, price_max, rating, review_count, verified)
 values
-  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', '11111111-1111-4111-8111-111111111111', 'Ama Thread House', array['Bespoke gowns','Corsetry','Kente accents'], array['Request a quote','Guild order lead','Fit-check alterations'], 'Greater Accra', 'Accra', 850, 6500, 4.9, 217, true),
-  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', '22222222-2222-4222-8222-222222222222', 'Sole Lab Kumasi', array['Sneaker remake','Leather soles','NFC passports'], array['Custom pair','Repair','Guild footwear'], 'Ashanti', 'Kumasi', 350, 2800, 4.8, 143, true),
-  ('cccccccc-cccc-4ccc-8ccc-cccccccccccc', '33333333-3333-4333-8333-333333333333', 'Esi Looks Studio', array['Bridal MUA','Editorial glam','Skin prep'], array['Event booking','Guild beauty','Live demos'], 'Central', 'Cape Coast', 500, 3200, 4.7, 89, true)
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', '11111111-1111-4111-8111-111111111111', 'Ama Thread House', array['Bespoke gowns','Corsetry','Kente accents'], array['Request a quote','Guild order lead','Fit-check alterations'], array['bespoke-tailor-seamstress','bridal-kente-couturier','fashion-designer'], 'apparel', 'Greater Accra', 'Accra', 850, 6500, 4.9, 217, true),
+  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', '22222222-2222-4222-8222-222222222222', 'Sole Lab Kumasi', array['Sneaker remake','Leather soles','NFC passports'], array['Custom pair','Repair','Guild footwear'], array['cordwainer-shoemaker','sneaker-customizer','footwear-restoration-expert'], 'footwear', 'Ashanti', 'Kumasi', 350, 2800, 4.8, 143, true),
+  ('cccccccc-cccc-4ccc-8ccc-cccccccccccc', '33333333-3333-4333-8333-333333333333', 'Esi Looks Studio', array['Bridal MUA','Editorial glam','Skin prep'], array['Event booking','Guild beauty','Live demos'], array['makeup-artist','skin-glow-consultant'], 'beauty', 'Central', 'Cape Coast', 500, 3200, 4.7, 89, true),
+  ('dddddddd-dddd-4ddd-8ddd-dddddddddddd', '55555555-5555-4555-8555-555555555555', 'Bonwire Provenance Looms', array['Handwoven kente','Ceremony panels','Material passports'], array['Custom weave order','Fabric lots','Authenticity notes'], array['kente-weaver','textile-artisan','fabric-vendor'], 'textiles', 'Ashanti', 'Bonwire', 280, 4900, 4.9, 168, true),
+  ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee', '66666666-6666-4666-8666-666666666666', 'Afia Style Bureau', array['Wedding styling','Campaign direction','Moodboard curation'], array['Style brief','Guild coordination','Trend report'], array['fashion-stylist','creative-director','fashion-blogger-influencer'], 'media', 'Greater Accra', 'East Legon', 700, 8500, 4.8, 121, true),
+  ('ffffffff-ffff-4fff-8fff-ffffffffffff', '77777777-7777-4777-8777-777777777777', 'Selorm Frame House', array['Campaign shoots','Runway reels','Portfolio film'], array['Book shoot','Live event capture','Product content'], array['fashion-photographer','fashion-videographer','model'], 'media', 'Greater Accra', 'Labone', 600, 7200, 4.7, 96, true),
+  ('12121212-1212-4212-8212-121212121212', '88888888-8888-4888-8888-888888888888', 'Mansa Crown Hair', array['Knotless braids','Custom lace wigs','Loc maintenance'], array['Book appointment','Source bundles','Guild beauty'], array['professional-braider','wig-architect','natural-hair-loctician','raw-hair-vendor'], 'beauty', 'Greater Accra', 'Madina', 220, 4600, 4.8, 134, true),
+  ('13131313-1313-4313-8313-131313131313', '99999999-9999-4999-8999-999999999999', 'Nana Gold and Beads', array['Gold emblems','Waist beads','Regalia curation'], array['Commission piece','Regalia sourcing','Passport verification'], array['goldsmith-silversmith','beadmaker-stringer','traditional-regalia-curator','accessory-designer'], 'jewelry', 'Ashanti', 'Kumasi', 400, 22000, 4.9, 77, true),
+  ('14141414-1414-4414-8414-141414141414', 'aaaaaaaa-aaaa-4aaa-8aaa-000000000001', 'Theo Garment Dispatch', array['Garment-safe delivery','Fabric pickups','Proof-of-delivery'], array['Schedule dispatch','Return pickup','Guild route'], array['logistics-dispatch-partner'], 'operations', 'Greater Accra', 'Tema', 45, 850, 4.6, 62, true)
 on conflict (id) do nothing;
 
 insert into public.posts (id, author_id, caption, like_count, comment_count, save_count)
 values
   ('10000000-0000-4000-8000-000000000001', '11111111-1111-4111-8111-111111111111', 'Final fitting: off-shoulder column gown with hand-beaded kente flashes.', 1208, 94, 311),
   ('10000000-0000-4000-8000-000000000002', '22222222-2222-4222-8222-222222222222', 'Rebuilt heel, dyed panels, and tagged the garment passport.', 768, 55, 144),
-  ('10000000-0000-4000-8000-000000000003', '33333333-3333-4333-8333-333333333333', 'Soft matte skin, copper lids, and a veil-ready finish.', 982, 66, 205)
+  ('10000000-0000-4000-8000-000000000003', '33333333-3333-4333-8333-333333333333', 'Soft matte skin, copper lids, and a veil-ready finish.', 982, 66, 205),
+  ('10000000-0000-4000-8000-000000000004', '55555555-5555-4555-8555-555555555555', 'New kente strip batch finished with provenance notes for bridal couturiers and fabric vendors.', 1120, 73, 260),
+  ('10000000-0000-4000-8000-000000000005', '66666666-6666-4666-8666-666666666666', 'Styling board locked for a three-vendor ceremony guild: couturier, MUA, jeweler.', 1540, 88, 421),
+  ('10000000-0000-4000-8000-000000000006', '88888888-8888-4888-8888-888888888888', 'Knotless braid map, raw hair bundle proof, and install care notes ready for the client.', 903, 49, 189)
 on conflict (id) do nothing;
 
 insert into public.post_media (post_id, bucket, path, media_type, alt, sort_order)
 values
   ('10000000-0000-4000-8000-000000000001', 'posts', 'gown.jpg', 'image', 'Editorial gown fitting', 0),
   ('10000000-0000-4000-8000-000000000002', 'posts', 'sneakers.jpg', 'image', 'Restored sneakers', 0),
-  ('10000000-0000-4000-8000-000000000003', 'posts', 'makeup.jpg', 'image', 'Makeup palette', 0);
+  ('10000000-0000-4000-8000-000000000003', 'posts', 'makeup.jpg', 'image', 'Makeup palette', 0),
+  ('10000000-0000-4000-8000-000000000004', 'posts', 'textile.jpg', 'image', 'Handwoven textile batch', 0),
+  ('10000000-0000-4000-8000-000000000005', 'posts', 'editorial.jpg', 'image', 'Editorial styling board', 0),
+  ('10000000-0000-4000-8000-000000000006', 'posts', 'hair.jpg', 'image', 'Hair styling workstation', 0);
 
 insert into public.reels (id, author_id, video_path, poster_path, caption, sound, like_count, comment_count, share_count)
 values

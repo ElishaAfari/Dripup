@@ -58,8 +58,8 @@ async function loadSocialData(): Promise<SocialData> {
 
   try {
     const [profileResult, vendorResult, postResult, mediaResult, reelResult, storyResult] = await Promise.all([
-      supabase.from('profiles').select('id, username, display_name, avatar_url, cover_url, bio, region, city, roles'),
-      supabase.from('vendor_profiles').select('id, profile_id, studio_name, specialties, services, location_region, location_city, price_min, price_max, rating, review_count, verified, availability'),
+      supabase.from('profiles').select('id, username, display_name, avatar_url, cover_url, bio, region, city, roles, professional_role_ids, primary_profession'),
+      supabase.from('vendor_profiles').select('id, profile_id, studio_name, specialties, services, role_tags, suite_key, location_region, location_city, price_min, price_max, rating, review_count, verified, availability'),
       supabase.from('posts').select('id, author_id, caption, like_count, comment_count, save_count, created_at'),
       supabase.from('post_media').select('id, post_id, bucket, path, media_type, alt'),
       supabase.from('reels').select('id, author_id, video_path, poster_path, caption, sound, like_count, comment_count, share_count'),
@@ -120,6 +120,8 @@ function mapProfile(row: RecordRow): Profile {
     username: text(row, 'username', 'atelier.user'),
     displayName: text(row, 'display_name', 'Atelier User'),
     role: parseRole(roles[0]),
+    professionalRoleIds: stringArray(row, 'professional_role_ids'),
+    primaryProfession: text(row, 'primary_profession'),
     avatarUrl: assetUrl(text(row, 'avatar_url'), 'avatars'),
     coverUrl: assetUrl(text(row, 'cover_url'), 'posts'),
     city: text(row, 'city', 'Accra'),
@@ -138,6 +140,8 @@ function mapVendor(row: RecordRow): VendorProfile {
     id: row.id,
     profileId: text(row, 'profile_id'),
     studioName: text(row, 'studio_name', 'Atelier Studio'),
+    roleTags: stringArray(row, 'role_tags'),
+    suiteKey: text(row, 'suite_key'),
     specialties: stringArray(row, 'specialties'),
     services: stringArray(row, 'services'),
     priceRange: priceMax > 0 ? `GHS ${priceMin.toLocaleString()} - ${priceMax.toLocaleString()}` : 'Quote on request',

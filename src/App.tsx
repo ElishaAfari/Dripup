@@ -15,6 +15,7 @@ import { MoodboardsPage } from '@/features/moodboards/MoodboardsPage'
 import { PassportPage } from '@/features/passport/PassportPage'
 import { ProfilePage } from '@/features/profile/ProfilePage'
 import { ReelsPage } from '@/features/reels/ReelsPage'
+import { RoleSuitesPage } from '@/features/role-suites/RoleSuitesPage'
 import { SearchPage } from '@/features/feed/SearchPage'
 import { StudioPage } from '@/features/dream-to-draft/StudioPage'
 import { WardrobePage } from '@/features/wardrobe/WardrobePage'
@@ -40,6 +41,7 @@ export default function App() {
           }
         >
           <Route index element={<FeedPage />} />
+          <Route path="suites" element={<RoleSuitesPage />} />
           <Route path="reels" element={<ReelsPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="messages" element={<MessagingPage />} />

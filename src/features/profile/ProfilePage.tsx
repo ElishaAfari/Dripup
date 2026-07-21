@@ -6,10 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Page } from '@/components/ui/Page'
 import { useProfileBundle } from '@/hooks/useAtelierData'
+import { defaultProfessionalRoleForBroadRole, getRoleDefinition, getRoleGroup } from '@/lib/roles'
 
 export function ProfilePage() {
   const { profileId } = useParams()
   const { profile, vendor, portfolio } = useProfileBundle(profileId)
+  const fallbackRoleId = profile.primaryProfession ?? defaultProfessionalRoleForBroadRole(profile.role)
+  const professionalRoles = (profile.professionalRoleIds?.length ? profile.professionalRoleIds : [fallbackRoleId]).map(getRoleDefinition)
+  const primaryProfession = getRoleDefinition(profile.primaryProfession ?? professionalRoles[0]?.id)
+  const primaryGroup = getRoleGroup(primaryProfession.group)
 
   return (
     <Page
@@ -43,7 +48,7 @@ export function ProfilePage() {
           {[
             ['Followers', profile.followers.toLocaleString()],
             ['Following', profile.following.toLocaleString()],
-            ['Role', profile.role],
+            ['Suite', primaryProfession.title],
             ['Region', profile.region],
           ].map(([label, value]) => (
             <div key={label} className="border border-black/[0.08] bg-atelier-mist/[0.55] p-3 dark:border-white/10 dark:bg-white/[0.08]">
@@ -51,6 +56,16 @@ export function ProfilePage() {
               <p className="mt-1 font-display text-xl font-bold capitalize">{value}</p>
             </div>
           ))}
+        </div>
+        <div className="border-t border-black/[0.08] p-4 dark:border-white/10">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-atelier-blue dark:text-atelier-green">{primaryGroup.label}</p>
+          <div className="flex flex-wrap gap-2">
+            {professionalRoles.map((role) => (
+              <span key={role.id} className="bg-atelier-black px-3 py-2 text-xs font-black text-white dark:bg-atelier-green dark:text-atelier-black">
+                {role.title}
+              </span>
+            ))}
+          </div>
         </div>
       </Card>
 
@@ -81,7 +96,7 @@ export function ProfilePage() {
             </div>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
-            {vendor.specialties.map((specialty) => (
+            {[...(vendor.roleTags?.map((roleId) => getRoleDefinition(roleId).title) ?? []), ...vendor.specialties].map((specialty) => (
               <span key={specialty} className="bg-atelier-black px-3 py-1 text-xs font-bold text-ink-inverse dark:bg-white/[0.10]">
                 {specialty}
               </span>

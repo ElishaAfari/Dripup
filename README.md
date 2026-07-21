@@ -69,6 +69,7 @@ supabase secrets set IMAGE_PROVIDER=openai IMAGE_API_KEY=...
 
 - Auth-first entry: `/`, `/auth`, `/login`, `/signup`, `/phone-login`, `/forgot-password`
 - Protected platform shell: `/app`
+- Multi-role suites: `/app/suites` maps apparel, textile, marketplace, beauty, footwear, jewelry, media, client, logistics, and QA roles into role-specific workstations
 - Social core: `/app`, `/app/reels`, `/app/search`, `/app/profile/:id`
 - Messaging and live: `/app/messages`, `/app/live`
 - AI studio: `/app/studio` with Dream-to-Draft, measurement capture, estimator, remix
@@ -77,6 +78,12 @@ supabase secrets set IMAGE_PROVIDER=openai IMAGE_API_KEY=...
 - Moodboards: `/app/moodboards`
 
 The platform shell is guarded by Supabase Auth when configured. In local mock mode, the auth page creates a session-scoped preview login so the app remains runnable without exposing provider keys in the browser.
+
+## Multi-Role Suite Layer
+
+The role catalog in `src/lib/roles.ts` models the full fashion ecosystem: bespoke tailors, designers, couturiers, pattern makers, fabric cutters, textile makers, kente weavers, Adinkra printers, batik dyers, fabric vendors, haberdashers, accessory crafters, raw hair vendors, barbers, hairstylists, locticians, braiders, wig architects, MUAs, nail technicians, skin consultants, shoemakers, sneaker customizers, sandal crafters, restoration experts, beadmakers, goldsmiths, accessory designers, regalia curators, stylists, photographers, videographers, models, influencers, clients, trend observers, dispatch partners, and authenticators.
+
+Supabase keeps broad `app_role` values for RLS while the `202607210001_multirole_suites.sql` migration adds fine-grained professional role catalog tables, profile role assignments, and vendor role tags. The browser uses those roles to switch the home workstation, signup path, discovery filters, profile specialization chips, and `/app/suites` hub.
 
 ## Escrow Note
 

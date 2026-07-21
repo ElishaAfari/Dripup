@@ -1,16 +1,18 @@
-import { Bell, Camera, Compass, Home, LogOut, MessageCircle, Moon, Palette, Search, Shirt, ShoppingBag, Sparkles, Sun, UserRound, Video } from 'lucide-react'
+import { BadgeCheck, Bell, Camera, Compass, Home, LogOut, MessageCircle, Moon, Palette, Search, Shirt, ShoppingBag, Sparkles, Sun, UserRound, Video } from 'lucide-react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import { notifications, profiles } from '@/data/seed'
 import { clearPreviewAuthenticated } from '@/lib/auth'
+import { getRoleDefinition } from '@/lib/roles'
 import { isSupabaseConfigured, supabase } from '@/lib/supabase'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/useAppStore'
 
 const navItems = [
   { to: '/app', label: 'Home', icon: Home },
+  { to: '/app/suites', label: 'Suites', icon: BadgeCheck },
   { to: '/app/reels', label: 'Reels', icon: Video },
   { to: '/app/search', label: 'Search', icon: Search },
   { to: '/app/messages', label: 'Messages', icon: MessageCircle },
@@ -27,8 +29,8 @@ const navItems = [
 
 const mobileItems = [
   { to: '/app', label: 'Home', icon: Home },
+  { to: '/app/suites', label: 'Suites', icon: BadgeCheck },
   { to: '/app/reels', label: 'Reels', icon: Video },
-  { to: '/app/search', label: 'Search', icon: Search },
   { to: '/app/messages', label: 'Messages', icon: MessageCircle },
   { to: '/app/studio', label: 'Studio', icon: Sparkles },
 ] as const
@@ -36,9 +38,11 @@ const mobileItems = [
 export function AppShell() {
   const navigate = useNavigate()
   const theme = useAppStore((state) => state.theme)
+  const activeRoleId = useAppStore((state) => state.activeRoleId)
   const toggleTheme = useAppStore((state) => state.toggleTheme)
   const unreadCount = notifications.filter((notification) => !notification.read).length
   const currentProfile = profiles[3]
+  const activeRole = getRoleDefinition(activeRoleId)
 
   async function handleSignOut() {
     clearPreviewAuthenticated()
@@ -79,9 +83,14 @@ export function AppShell() {
             ))}
           </nav>
           <div className="mt-6 border border-black/[0.08] bg-atelier-black p-4 text-ink-inverse shadow-[0_18px_48px_rgba(5,8,6,0.22)]">
-            <Palette className="mb-3 text-atelier-green" size={22} />
-            <p className="font-display text-xl font-bold">Creative AI studio</p>
-            <p className="mt-2 text-sm text-white/[0.68]">Draft, remix, estimate, fit-check, and collaborate from one command center.</p>
+                <Palette className="mb-3 text-atelier-green" size={22} />
+                <p className="font-display text-xl font-bold">Creative AI studio</p>
+                <p className="mt-2 text-sm text-white/[0.68]">Draft, remix, estimate, fit-check, and collaborate from one command center.</p>
+              </div>
+          <div className="mt-3 border border-black/[0.08] bg-[#eef5ff] p-4 text-atelier-black dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-atelier-blue dark:text-atelier-green">Active suite</p>
+            <p className="mt-1 font-display text-xl font-black">{activeRole.title}</p>
+            <p className="mt-2 line-clamp-2 text-sm font-semibold text-ink-muted dark:text-white/[0.58]">{activeRole.description}</p>
           </div>
           <button
             type="button"
@@ -103,8 +112,8 @@ export function AppShell() {
                 <span className="font-display text-2xl font-black">Atelier</span>
               </NavLink>
               <div className="hidden min-w-0 flex-1 md:block">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-atelier-blue dark:text-atelier-green">Fashion lifestyle super-app</p>
-                <p className="truncate font-display text-2xl font-bold">Social, commerce, studio, passports</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-atelier-blue dark:text-atelier-green">Active suite / {activeRole.audience}</p>
+                <p className="truncate font-display text-2xl font-bold">{activeRole.title}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Button variant="secondary" size="icon" onClick={toggleTheme} aria-label="Toggle dark mode">

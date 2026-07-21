@@ -19,13 +19,14 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { markPreviewAuthenticated } from '@/lib/auth'
+import { authRolesForProfessionalRole, getRoleDefinition, roleGroups, rolesByGroup, type RoleGroupKey } from '@/lib/roles'
 import { cn } from '@/lib/utils'
 import { isSupabaseConfigured, supabase } from '@/lib/supabase'
+import { useAppStore } from '@/stores/useAppStore'
 
 type AuthMode = 'signin' | 'signup' | 'forgot'
 type AuthMethod = 'email' | 'phone'
 type AuthStatus = 'idle' | 'sending' | 'sent' | 'error'
-type VendorRole = 'customer' | 'artisan' | 'designer' | 'mua' | 'seller'
 
 type TextFieldProps = {
   icon: LucideIcon
@@ -36,14 +37,6 @@ type TextFieldProps = {
   type?: string
   action?: ReactNode
 }
-
-const roleOptions: { value: VendorRole; label: string }[] = [
-  { value: 'customer', label: 'Customer' },
-  { value: 'artisan', label: 'Maker' },
-  { value: 'designer', label: 'Designer' },
-  { value: 'mua', label: 'MUA' },
-  { value: 'seller', label: 'Seller' },
-]
 
 const proofPoints = [
   'Commission custom looks with protected milestones',
@@ -68,6 +61,7 @@ function initialMethod(pathname: string): AuthMethod {
 export function AuthPage() {
   const navigate = useNavigate()
   const location = useLocation()
+  const setActiveRoleId = useAppStore((state) => state.setActiveRoleId)
   const [mode, setMode] = useState<AuthMode>(initialMode(location.pathname))
   const [method, setMethod] = useState<AuthMethod>(initialMethod(location.pathname))
   const [status, setStatus] = useState<AuthStatus>('idle')
@@ -79,7 +73,7 @@ export function AuthPage() {
   const [otp, setOtp] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [role, setRole] = useState<VendorRole>('customer')
+  const [role, setRole] = useState('bespoke-client')
   const [acceptedTerms, setAcceptedTerms] = useState(false)
 
   const passwordChecks = useMemo(
@@ -187,7 +181,10 @@ export function AuthPage() {
         data: {
           display_name: name,
           phone,
-          roles: role === 'customer' ? ['customer'] : ['customer', role],
+          roles: authRolesForProfessionalRole(role),
+          professional_role_ids: [role],
+          primary_profession: role,
+          role_group: getRoleDefinition(role).group,
         },
       },
     })
@@ -296,6 +293,7 @@ export function AuthPage() {
   }
 
   function succeedAndEnter(nextMessage: string) {
+    setActiveRoleId(role)
     if (!isSupabaseConfigured()) {
       markPreviewAuthenticated()
     }
@@ -417,6 +415,11 @@ export function AuthPage() {
                       type={showPassword ? 'text' : 'password'}
                     />
                     <PasswordMeter checks={passwordChecks} score={passwordScore} />
+                  </>
+                ) : null}
+
+                {mode === 'signup' ? (
+                  <>
                     <RoleSelector value={role} onChange={setRole} />
                     <label className="flex items-start gap-3 border border-black/10 bg-[#f4f8ff] p-3 text-sm font-bold text-atelier-black/[0.68]">
                       <input
@@ -617,26 +620,64 @@ function PasswordMeter({ checks, score }: { checks: { label: string; passed: boo
   )
 }
 
-function RoleSelector({ value, onChange }: { value: VendorRole; onChange: (value: VendorRole) => void }) {
+function RoleSelector({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const selectedRole = getRoleDefinition(value)
+  const [activeGroup, setActiveGroup] = useState<RoleGroupKey>(selectedRole.group)
+  const activeRoles = rolesByGroup(activeGroup)
+
+  function selectGroup(groupKey: RoleGroupKey) {
+    setActiveGroup(groupKey)
+    const firstRole = rolesByGroup(groupKey)[0]
+    if (firstRole) {
+      onChange(firstRole.id)
+    }
+  }
+
   return (
     <div>
-      <p className="mb-2 text-sm font-black text-atelier-black">Account type</p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-        {roleOptions.map((option) => (
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <p className="text-sm font-black text-atelier-black">Professional path</p>
+        <span className="text-xs font-black uppercase tracking-[0.14em] text-atelier-blue">{selectedRole.broadRole}</span>
+      </div>
+      <div className="atelier-scrollbar mb-3 flex gap-2 overflow-x-auto pb-1">
+        {roleGroups.map((group) => (
           <button
-            key={option.value}
+            key={group.key}
             type="button"
-            onClick={() => onChange(option.value)}
+            onClick={() => selectGroup(group.key)}
             className={cn(
-              'min-h-[42px] border px-2 text-xs font-black transition',
-              value === option.value
+              'min-h-[40px] shrink-0 border px-3 text-xs font-black transition',
+              activeGroup === group.key
                 ? 'border-atelier-black bg-atelier-black text-white'
                 : 'border-black/10 bg-white text-atelier-black/[0.55] hover:border-atelier-green hover:text-atelier-fern',
             )}
           >
-            {option.label}
+            {group.label.split(' and ')[0]}
           </button>
         ))}
+      </div>
+      <div className="grid max-h-[240px] gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
+        {activeRoles.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            onClick={() => onChange(option.id)}
+            className={cn(
+              'min-h-[72px] border px-3 py-2 text-left text-xs font-black transition',
+              value === option.id
+                ? 'border-atelier-blue bg-[#eef5ff] text-atelier-blue shadow-[inset_0_0_0_1px_rgba(18,103,255,0.10)]'
+                : 'border-black/10 bg-white text-atelier-black/[0.58] hover:border-atelier-green hover:text-atelier-fern',
+            )}
+          >
+            <span className="block leading-tight">{option.title}</span>
+            <span className="mt-1 line-clamp-2 block text-[11px] font-semibold leading-4 opacity-70">{option.description}</span>
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 border border-atelier-green/[0.35] bg-atelier-green/10 p-3">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-atelier-fern">Your suite</p>
+        <p className="mt-1 text-sm font-black text-atelier-black">{selectedRole.suiteTitle}</p>
+        <p className="mt-1 text-xs font-semibold leading-5 text-atelier-black/[0.62]">{selectedRole.suiteDescription}</p>
       </div>
     </div>
   )

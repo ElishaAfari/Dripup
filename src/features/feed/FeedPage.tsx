@@ -37,6 +37,7 @@ import { StoryRing } from '@/components/ui/StoryRing'
 import { StoryViewer } from '@/features/stories/StoryViewer'
 import { auctions, bids, designs, guildOrders, imagePool, milestones, notifications } from '@/data/seed'
 import { useSocialData } from '@/hooks/useAtelierData'
+import { fashionRoles, getRoleDefinition, getRoleGroup, rolesByGroup, type FashionRoleDefinition } from '@/lib/roles'
 import { cn, formatCompact, formatCurrency } from '@/lib/utils'
 import { useAppStore } from '@/stores/useAppStore'
 import type { HomeNotice as HomeNoticeState } from '@/stores/useAppStore'
@@ -67,6 +68,8 @@ export function FeedPage() {
   const homeNotice = useAppStore((state) => state.homeNotice)
   const dismissHomeNotice = useAppStore((state) => state.dismissHomeNotice)
   const showHomeNotice = useAppStore((state) => state.showHomeNotice)
+  const activeRoleId = useAppStore((state) => state.activeRoleId)
+  const setActiveRoleId = useAppStore((state) => state.setActiveRoleId)
   const social = useSocialData()
   const currentProfile = social.data.profiles.find((profile) => profile.id === 'profile-nadia') ?? social.data.profiles[0]
   const [activeTab, setActiveTab] = useState<HomeTab>('for-you')
@@ -105,6 +108,7 @@ export function FeedPage() {
       <HomeNotice notice={homeNotice} onDismiss={dismissHomeNotice} />
       <HomeCommand currentProfile={currentProfile} />
       <HomeTabs activeTab={activeTab} onChange={setActiveTab} />
+      <RoleSuitePreview activeRole={getRoleDefinition(activeRoleId)} onSelectRole={setActiveRoleId} />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="min-w-0 space-y-5">
@@ -125,6 +129,75 @@ export function FeedPage() {
 
       <StoryViewer />
     </motion.div>
+  )
+}
+
+function RoleSuitePreview({ activeRole, onSelectRole }: { activeRole: FashionRoleDefinition; onSelectRole: (roleId: string) => void }) {
+  const group = getRoleGroup(activeRole.group)
+  const suggestedRoles = rolesByGroup(activeRole.group).slice(0, 6)
+  const totalMappedRoles = fashionRoles.length
+
+  return (
+    <Card className="overflow-hidden p-0">
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_330px]">
+        <div className="bg-atelier-black p-5 text-white sm:p-6">
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 bg-white/[0.10] px-3 py-2 text-xs font-black uppercase tracking-[0.16em]">
+              <BadgeCheck size={16} className="text-atelier-green" />
+              {group.label}
+            </span>
+            <span className="bg-atelier-green px-3 py-2 text-xs font-black uppercase tracking-[0.16em] text-atelier-black">
+              {totalMappedRoles} roles mapped
+            </span>
+          </div>
+          <h2 className="font-display text-3xl font-black leading-tight sm:text-4xl">{activeRole.suiteTitle}</h2>
+          <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-white/[0.72]">{activeRole.suiteDescription}</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {activeRole.workflows.map((workflow) => (
+              <Link
+                key={workflow.label}
+                to={workflow.to}
+                className="inline-flex min-h-11 items-center gap-2 bg-white px-3 text-sm font-black text-atelier-black transition hover:bg-atelier-green"
+              >
+                {workflow.cta}
+                <ChevronRight size={16} />
+              </Link>
+            ))}
+            <Link
+              to="/app/suites"
+              className="inline-flex min-h-11 items-center gap-2 border border-white/[0.16] bg-white/[0.10] px-3 text-sm font-black text-white transition hover:bg-white/[0.16]"
+            >
+              Open suite hub
+              <ChevronRight size={16} />
+            </Link>
+          </div>
+        </div>
+        <div className="bg-white p-4 dark:bg-white/[0.06]">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-atelier-blue dark:text-atelier-green">Switch operating mode</p>
+          <div className="space-y-2">
+            {suggestedRoles.map((role) => {
+              const active = role.id === activeRole.id
+              return (
+                <button
+                  key={role.id}
+                  type="button"
+                  onClick={() => onSelectRole(role.id)}
+                  className={cn(
+                    'flex min-h-12 w-full items-center justify-between gap-2 border px-3 text-left text-sm font-black transition',
+                    active
+                      ? 'border-atelier-blue bg-[#eef5ff] text-atelier-blue dark:border-atelier-green dark:bg-atelier-green/10 dark:text-atelier-green'
+                      : 'border-black/[0.08] bg-[#f7fbff] text-ink-muted hover:border-atelier-blue/40 hover:text-atelier-blue dark:border-white/10 dark:bg-white/[0.08] dark:text-white/[0.62] dark:hover:text-atelier-green',
+                  )}
+                >
+                  <span className="truncate">{role.title}</span>
+                  {active ? <Sparkles size={16} /> : <ChevronRight size={15} />}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </Card>
   )
 }
 

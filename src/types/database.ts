@@ -17,6 +17,8 @@ type TableDefinition<T extends Row = Row> = {
 
 type PublicTables = {
   profiles: TableDefinition
+  professional_role_catalog: TableDefinition
+  profile_professional_roles: TableDefinition
   vendor_profiles: TableDefinition
   follows: TableDefinition
   posts: TableDefinition

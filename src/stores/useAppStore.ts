@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import type { ProfessionalRoleId } from '@/lib/roles'
 
 type ThemeMode = 'light' | 'dark'
 
@@ -18,6 +19,7 @@ export type HomeNotice = {
 
 type AppState = {
   theme: ThemeMode
+  activeRoleId: ProfessionalRoleId
   activeStoryId: string | null
   likedIds: string[]
   savedIds: string[]
@@ -26,6 +28,7 @@ type AppState = {
   commentsByPost: Record<string, FeedComment[]>
   homeNotice: HomeNotice | null
   toggleTheme: () => void
+  setActiveRoleId: (roleId: ProfessionalRoleId) => void
   openStory: (storyId: string) => void
   closeStory: () => void
   toggleLike: (id: string) => void
@@ -46,6 +49,7 @@ function getInitialTheme(): ThemeMode {
 
 export const useAppStore = create<AppState>((set) => ({
   theme: getInitialTheme(),
+  activeRoleId: 'bespoke-client',
   activeStoryId: null,
   likedIds: [],
   savedIds: [],
@@ -59,6 +63,7 @@ export const useAppStore = create<AppState>((set) => ({
       document.documentElement.classList.toggle('dark', theme === 'dark')
       return { theme }
     }),
+  setActiveRoleId: (activeRoleId) => set({ activeRoleId }),
   openStory: (storyId) => set({ activeStoryId: storyId }),
   closeStory: () => set({ activeStoryId: null }),
   toggleLike: (id) =>
